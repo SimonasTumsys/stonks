@@ -7,9 +7,12 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import useFilter from "../../hooks/useFilter";
 
-function Datepicker() {
+const Datepicker = (props) => {
   const isMobile = useMediaQuery({ query: `(max-width: 768px)` });
-  const { dateFrom, handleDateFrom, dateTo, handleDateTo } = useFilter();
+  const dateFrom = props.dateFrom;
+  const handleDateFrom = props.handleDateFrom;
+  const dateTo = props.dateTo;
+  const handleDateTo = props.handleDateTo;
 
   return (
     <>
@@ -84,6 +87,6 @@ function Datepicker() {
       </LocalizationProvider>
     </>
   );
-}
+};
 
 export default Datepicker;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { API_KEY } from "../utils/constants";
+import useFilter from "./useFilter";
 
-function useFetch(url) {
+const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -10,15 +11,16 @@ function useFetch(url) {
     setLoading(true);
     fetch(url, {
       method: "GET",
-      headers: { "X-Finnhub-Token": API_KEY },
-      "Content-Type": "application/json",
     })
-      .then((response) => response.json)
+      .then((response) => response.json())
       .then((requestData) => setData(requestData))
-      .catch((err) => setError(err));
+      .catch((err) => setError(err))
+      .finally(() => {
+        setLoading(false);
+      });
   }, [url]);
 
-  return { data, loading, error };
-}
+  return { data, setData, loading, error };
+};
 
 export default useFetch;
