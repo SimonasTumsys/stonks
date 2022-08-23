@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { API_KEY } from "../utils/constants";
-import { createFetchUrlForCompanyProfile } from "./useFilter";
+import useFilter from "./useFilter";
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
@@ -19,20 +19,6 @@ const useFetch = (url) => {
         setLoading(false);
       });
   }, [url]);
-
-  // useEffect(() => {
-  //   let array = data;
-  //   setLoading(true);
-  //   (async () => {
-  //     const response = await fetch(url, {
-  //       method: "GET",
-  //     });
-  //     const requestData = await response.json();
-  //     array.push(requestData);
-  //     setData(array);
-  //   })();
-  //   setLoading(false);
-  // }, [url]);
 
   return { data, setData, loading, error };
 };

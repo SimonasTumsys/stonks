@@ -35,16 +35,6 @@ const useFilter = () => {
     }
   };
 
-  const createFetchUrlForCompanyProfile = (symbol) => {
-    let fetchUrl = API_URL + STOCK_PROFILE_URL;
-    if (symbol && !hasSpecials(symbol) && !strTooLong(symbol)) {
-      fetchUrl += "?symbol=" + symbol.toUpperCase() + "&token=" + API_KEY;
-    }
-    return fetchUrl;
-  };
-
-  const createFetchUrlForPriceHistory = () => {};
-
   return {
     symbol,
     handleTextFieldChange,
@@ -55,7 +45,6 @@ const useFilter = () => {
     dateTo,
     handleDateTo,
     setDateTo,
-    createFetchUrlForCompanyProfile,
   };
 };
 

@@ -1,3 +1,10 @@
+import {
+  API_KEY,
+  API_URL,
+  STOCK_CANDLE_URL,
+  STOCK_PROFILE_URL,
+} from "./constants";
+
 export const hasSpecials = (str) => {
   const specials = /[^A-Za-z ]/g;
   return specials.test(str);
@@ -39,3 +46,27 @@ export const makeCompanySymbolArray = (symbols) => {
   const array = symbols.split(" ");
   return array.filter((e) => String(e).trim());
 };
+
+export const makeUniqueObjectArray = (objects) => {
+  const stringSet = new Set();
+  const resultArr = [];
+  for (let o of objects) {
+    if (!isEmptyObject(o)) {
+      stringSet.add(JSON.stringify(o));
+    }
+  }
+  for (let s of stringSet) {
+    resultArr.push(JSON.parse(s));
+  }
+  return resultArr;
+};
+
+export const createFetchUrlForCompanyProfile = (symbol) => {
+  let fetchUrl = API_URL + STOCK_PROFILE_URL;
+  if (symbol && !hasSpecials(symbol) && !strTooLong(symbol)) {
+    fetchUrl += "?symbol=" + symbol.toUpperCase() + "&token=" + API_KEY;
+  }
+  return fetchUrl;
+};
+
+export const createFetchUrlForPriceHistory = () => {};

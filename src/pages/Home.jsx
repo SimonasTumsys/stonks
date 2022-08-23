@@ -7,11 +7,20 @@ import CompanyTable from "../components/data/CompanyTable";
 import useFilter from "../hooks/useFilter";
 import useFetch from "../hooks/useFetch";
 import CircularIndeterminate from "../components/data/CircularIndeterminate";
-import { makeCompanySymbolArray } from "../utils/utils";
+import {
+  makeCompanySymbolArray,
+  isEmptyObject,
+  makeUniqueObjectArray,
+  createFetchUrlForCompanyProfile,
+} from "../utils/utils";
+import useCompanyProfileFetch from "../hooks/useCompanyProfileFetch";
 
 const Home = () => {
-  const [url, setUrl] = useState(null);
-  const { data, setData, loading, error } = useFetch(url);
+  // const [url, setUrl] = useState(null);
+  // const { data, setData, loading, error } = useFetch(url);
+  const [symbols, setSymbols] = useState([]);
+  const { profileData, setProfileData, profileLoading } =
+    useCompanyProfileFetch(symbols);
 
   const {
     symbol,
@@ -23,22 +32,18 @@ const Home = () => {
     dateTo,
     handleDateTo,
     setDateTo,
-    createFetchUrlForCompanyProfile,
   } = useFilter();
 
   const handleSearchButtonClick = () => {
-    // let symbolArray = makeCompanySymbolArray(symbol);
-    // console.log(symbolArray);
-    let fetchUrl = createFetchUrlForCompanyProfile(symbol);
-    setUrl(fetchUrl);
+    const newSymbols = makeCompanySymbolArray(symbol);
+    setSymbols(newSymbols);
   };
 
   const handleResetButtonClick = () => {
     setSymbol("");
     setDateFrom(null);
     setDateTo(null);
-    setUrl(null);
-    setData(null);
+    setSymbols([]);
   };
 
   return (
@@ -46,7 +51,7 @@ const Home = () => {
       <div
         className="container 
           mx-auto pt-10 max-w-xl px-6 
-          h-full border bg-gray-100 rounded min-w-min opacity-95"
+          h-full border bg-gray-100 rounded min-w-min opacity-95 overflow-auto "
       >
         <div className="mb-4">
           <InputField
@@ -69,9 +74,21 @@ const Home = () => {
           />
           <ResetButton handleResetButtonClick={handleResetButtonClick} />
         </div>
-        <div className="container mt-4 flex justify-center">
-          {loading ? <CircularIndeterminate /> : <CompanyTable data={data} />}
-        </div>
+        {symbols.length > 0 ? (
+          <div className="container mt-4 flex justify-center overflow-auto">
+            {profileLoading ? (
+              <CircularIndeterminate />
+            ) : (
+              <CompanyTable loading={profileLoading} data={profileData} />
+            )}
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <span className="pt-8 text-gray-600 text-3xl font-thin font-sans">
+              Try searching!
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

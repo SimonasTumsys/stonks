@@ -34,7 +34,7 @@ const Inputfield = (props) => {
             "focus:outline-none border hover:border-2 focus:border-2  rounded px-3 py-1 w-full h-14 "
           )}
           type="text"
-          placeholder="Symbol"
+          placeholder="Symbol / Symbols separated by space"
           value={symbol}
           onChange={handleTextFieldChange}
         />
