@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-import { toUnixTime } from "../utils/utils";
+import { toUnixTime, hasSpecials, strTooLong } from "../utils/utils";
+import { API_KEY, API_SANDBOX_KEY } from "../utils/constants";
+import { useFetch } from "./useFetch";
 import {
   API_URL,
   STOCK_PROFILE_URL,
   STOCK_CANDLE_URL,
 } from "../utils/constants";
 
-function useFilter() {
-  const [compName, setCompName] = useState("");
+const useFilter = () => {
+  const [symbol, setSymbol] = useState("");
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(null);
 
   const handleTextFieldChange = (e) => {
-    setCompName(e.target.value);
+    setSymbol(e.target.value);
   };
 
   const handleDateFrom = (newValue) => {
@@ -33,20 +35,28 @@ function useFilter() {
     }
   };
 
-  const createFetchUrlForCompanyProfile = () => {
+  const createFetchUrlForCompanyProfile = (symbol) => {
     let fetchUrl = API_URL + STOCK_PROFILE_URL;
+    if (symbol && !hasSpecials(symbol) && !strTooLong(symbol)) {
+      fetchUrl += "?symbol=" + symbol.toUpperCase() + "&token=" + API_KEY;
+    }
+    return fetchUrl;
   };
 
   const createFetchUrlForPriceHistory = () => {};
 
   return {
-    compName,
+    symbol,
     handleTextFieldChange,
+    setSymbol,
     dateFrom,
     handleDateFrom,
+    setDateFrom,
     dateTo,
     handleDateTo,
+    setDateTo,
+    createFetchUrlForCompanyProfile,
   };
-}
+};
 
 export default useFilter;

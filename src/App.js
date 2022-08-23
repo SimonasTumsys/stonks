@@ -1,7 +1,7 @@
 import Home from "./pages/Home";
 import backgroundImage from "./assets/bg-chart.jpg";
 
-function App() {
+const App = () => {
   return (
     <div
       className="App h-screen w-screen 
@@ -11,6 +11,6 @@ function App() {
       <Home />
     </div>
   );
-}
+};
 
 export default App;

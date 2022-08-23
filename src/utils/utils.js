@@ -1,22 +1,41 @@
-export function hasSpecials(str) {
+export const hasSpecials = (str) => {
   const specials = /[^A-Za-z ]/g;
   return specials.test(str);
-}
+};
 
-export function strTooLong(str) {
+export const strTooLong = (str) => {
   return str.length > 35;
-}
+};
 
-export function classNames(...classes) {
+export const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
-}
+};
 
-export function toUnixTime(date) {
+export const toUnixTime = (date) => {
   if (date !== null) {
     return date.getTime() / 1000;
   }
-}
+};
 
-export function questionOrAnd(url) {
+export const questionOrAnd = (url) => {
   return url.includes("?") ? "&" : "?";
-}
+};
+
+export const isEmptyObject = (object) => {
+  if (object) {
+    return Object.entries(object).length === 0;
+  }
+  return true;
+};
+
+export const isEmptyArray = (array) => {
+  if (array) {
+    return array.length === 0;
+  }
+  return true;
+};
+
+export const makeCompanySymbolArray = (symbols) => {
+  const array = symbols.split(" ");
+  return array.filter((e) => String(e).trim());
+};
