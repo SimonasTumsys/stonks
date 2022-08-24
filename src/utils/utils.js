@@ -24,10 +24,38 @@ export const toUnixTime = (date) => {
   }
 };
 
-export const fromUnixtoDate = (unixTime) => {
+export const unixToDate = (unixTime) => {
   if (unixTime) {
     return new Date(unixTime * 1000);
   }
+};
+
+export const dateToString = (date) => {
+  if (date) {
+    let dateStr =
+      padStr(date.getFullYear()) +
+      "-" +
+      padStr(1 + date.getMonth()) +
+      "-" +
+      padStr(date.getDate()) +
+      " " +
+      padStr(date.getHours()) +
+      ":" +
+      padStr(date.getMinutes()) +
+      ":" +
+      padStr(date.getSeconds());
+    return dateStr;
+  }
+};
+
+export const unixToString = (unixTime) => {
+  if (unixTime) {
+    return dateToString(unixToDate(unixTime));
+  }
+};
+
+export const padStr = (i) => {
+  return i < 10 ? "0" + i : "" + i;
 };
 
 export const questionOrAnd = (url) => {

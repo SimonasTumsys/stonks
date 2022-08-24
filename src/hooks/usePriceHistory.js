@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const usePriceHistory = () => {
   const [historyModal, setHistoryModal] = useState(false);
-  const [resolution, setResolution] = useState(1);
+  const [resolution, setResolution] = useState("1");
   const [symbol, setSymbol] = useState("");
 
   const toggleHistoryModal = () => {

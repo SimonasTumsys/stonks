@@ -62,10 +62,6 @@ const Home = (props) => {
   const { candleData, setCandleData, candleLoading, candleError } =
     useCandleFetch(url);
 
-  useEffect(() => {
-    console.log(candleData);
-  }, [candleData]);
-
   return (
     <div className="pt-8 p-8 h-screen min-h-screen">
       <HistoryModal

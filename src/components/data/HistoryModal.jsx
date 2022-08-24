@@ -1,8 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationIcon } from "@heroicons/react/outline";
 import CircularIndeterminate from "./CircularIndeterminate";
+import Chart from "./Chart";
 
 const HistoryModal = (props) => {
   return (
@@ -52,7 +52,16 @@ const HistoryModal = (props) => {
                       <CircularIndeterminate />
                     </div>
                   ) : (
-                    <div className=""></div>
+                    <div className="flex justify-center">
+                      <Chart
+                        symbol={props.symbol}
+                        dateFrom={props.dateFrom}
+                        dateTo={props.dateTo}
+                        candleLoading={props.candleLoading}
+                        candleData={props.candleData}
+                        setCandleData={props.setCandleData}
+                      />
+                    </div>
                   )}
                 </div>
                 <div
