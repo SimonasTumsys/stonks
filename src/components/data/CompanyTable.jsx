@@ -1,9 +1,25 @@
 import React from "react";
-import { GlobeAltIcon, LinkIcon } from "@heroicons/react/outline";
-import { isEmptyObject, classNames } from "../../utils/utils";
+import { classNames } from "../../utils/utils";
+import { LinkIcon } from "@heroicons/react/outline";
+import { useEffect } from "react";
+import { createFetchUrlForPriceHistory } from "../../utils/utils";
 
 const CompanyTable = (props) => {
-  const companies = props.data;
+  const toggleHistoryModal = props.toggleHistoryModal;
+  const setSymbol = props.setSymbol;
+
+  const handleTdClick = async (e) => {
+    let s = e.target.getAttribute("value");
+    setSymbol(s);
+    const newUrl = await createFetchUrlForPriceHistory(
+      s,
+      props.resolution,
+      props.dateFrom,
+      props.dateTo
+    );
+    props.setUrl(newUrl);
+    toggleHistoryModal();
+  };
 
   return (
     <table className="table-auto w-full rounded">
@@ -16,10 +32,10 @@ const CompanyTable = (props) => {
         </tr>
       </thead>
       <tbody className="overflow-auto">
-        {companies.map((company, index) => (
+        {props.profileData.map((company, index) => (
           <tr
             className={classNames(
-              index !== companies.length - 1
+              index !== props.profileData.length - 1
                 ? "border-b border-gray-300"
                 : "border-none",
               "h-14",
@@ -27,12 +43,22 @@ const CompanyTable = (props) => {
             )}
             key={company.ticker}
           >
-            <td className="p-3 px-5 text-left">{company.name}</td>
+            <td
+              onClick={handleTdClick}
+              className="p-3 px-5 text-left hover:bg-blue-100 hover:cursor-pointer"
+              value={company.ticker}
+            >
+              {company.name}
+            </td>
             <td className="text-center">{company.country}</td>
             <td className="text-center">{company.currency}</td>
             <td className="text-center">
-              <a href={company?.weburl} className="flex justify-center">
-                <LinkIcon className="h-6 w-6 text-gray-700" />
+              <a
+                href={company.weburl}
+                target="blank"
+                className="flex justify-center"
+              >
+                <LinkIcon className="h-6 w-6 text-gray-700 hover:text-blue-600" />
               </a>
             </td>
           </tr>

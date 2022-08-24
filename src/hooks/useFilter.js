@@ -1,20 +1,12 @@
-import { useState, useEffect } from "react";
-import { toUnixTime, hasSpecials, strTooLong } from "../utils/utils";
-import { API_KEY, API_SANDBOX_KEY } from "../utils/constants";
-import { useFetch } from "./useFetch";
-import {
-  API_URL,
-  STOCK_PROFILE_URL,
-  STOCK_CANDLE_URL,
-} from "../utils/constants";
+import { useState } from "react";
 
 const useFilter = () => {
-  const [symbol, setSymbol] = useState("");
-  const [dateFrom, setDateFrom] = useState(null);
-  const [dateTo, setDateTo] = useState(null);
+  const [symbolString, setSymbolString] = useState("");
+  const [dateFrom, setDateFrom] = useState(new Date(2022, 7, 23));
+  const [dateTo, setDateTo] = useState(new Date());
 
   const handleTextFieldChange = (e) => {
-    setSymbol(e.target.value);
+    setSymbolString(e.target.value);
   };
 
   const handleDateFrom = (newValue) => {
@@ -36,9 +28,9 @@ const useFilter = () => {
   };
 
   return {
-    symbol,
+    symbolString,
     handleTextFieldChange,
-    setSymbol,
+    setSymbolString,
     dateFrom,
     handleDateFrom,
     setDateFrom,

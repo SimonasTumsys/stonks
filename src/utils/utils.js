@@ -19,8 +19,14 @@ export const classNames = (...classes) => {
 };
 
 export const toUnixTime = (date) => {
-  if (date !== null) {
-    return date.getTime() / 1000;
+  if (date) {
+    return Math.floor(date.getTime() / 1000);
+  }
+};
+
+export const fromUnixtoDate = (unixTime) => {
+  if (unixTime) {
+    return new Date(unixTime * 1000);
   }
 };
 
@@ -31,13 +37,6 @@ export const questionOrAnd = (url) => {
 export const isEmptyObject = (object) => {
   if (object) {
     return Object.entries(object).length === 0;
-  }
-  return true;
-};
-
-export const isEmptyArray = (array) => {
-  if (array) {
-    return array.length === 0;
   }
   return true;
 };
@@ -69,4 +68,25 @@ export const createFetchUrlForCompanyProfile = (symbol) => {
   return fetchUrl;
 };
 
-export const createFetchUrlForPriceHistory = () => {};
+export const createFetchUrlForPriceHistory = async (
+  symbol,
+  resolution,
+  from,
+  to
+) => {
+  let fetchUrl = API_URL + STOCK_CANDLE_URL;
+  if (!hasSpecials(symbol) && !strTooLong(symbol)) {
+    fetchUrl +=
+      "?symbol=" +
+      symbol.toUpperCase() +
+      "&resolution=" +
+      resolution +
+      "&from=" +
+      toUnixTime(from) +
+      "&to=" +
+      toUnixTime(to) +
+      "&token=" +
+      API_KEY;
+  }
+  return fetchUrl;
+};
