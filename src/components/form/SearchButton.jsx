@@ -1,6 +1,4 @@
 import React from "react";
-import useFetch from "../../hooks/useFetch";
-import useFilter from "../../hooks/useFilter";
 import { Tooltip } from "@material-tailwind/react";
 import { hasSpecials, strTooLong, classNames } from "../../utils/utils";
 

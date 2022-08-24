@@ -1,9 +1,52 @@
 import React from "react";
-import { GlobeAltIcon, LinkIcon } from "@heroicons/react/outline";
-import { isEmptyObject, classNames } from "../../utils/utils";
+import { classNames } from "../../utils/utils";
+import { LinkIcon } from "@heroicons/react/outline";
+import { createFetchUrlForPriceHistory, dateToString } from "../../utils/utils";
+import { SERVER_URL } from "../../utils/constants";
 
 const CompanyTable = (props) => {
-  const companies = props.data;
+  const toggleHistoryModal = props.toggleHistoryModal;
+  const setSymbol = props.setSymbol;
+
+  const handleTdClick = (e) => {
+    let s = e.target.getAttribute("ticker");
+    let companyName = e.target.getAttribute("companyname");
+    setSymbol(s);
+    const newUrl = createFetchUrlForPriceHistory(
+      s,
+      props.resolution,
+      props.dateFrom,
+      props.dateTo
+    );
+    props.setUrl(newUrl);
+    props.setCompanyName(companyName);
+    makePost(
+      companyName,
+      props.candleData["c"],
+      props.candleData["t"],
+      props.dateFrom,
+      props.dateTo
+    );
+    toggleHistoryModal();
+  };
+
+  const makePost = (compName, cPrices, cTimestamps, dTo, dFrom) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        requestTimestamp: dateToString(new Date()),
+        companyName: compName,
+        closingPrices: cPrices,
+        candleTimestamps: cTimestamps,
+        dateFrom: dateToString(dFrom),
+        dateTo: dateToString(dTo),
+      }),
+    };
+    fetch(SERVER_URL, requestOptions)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  };
 
   return (
     <table className="table-auto w-full rounded">
@@ -16,10 +59,10 @@ const CompanyTable = (props) => {
         </tr>
       </thead>
       <tbody className="overflow-auto">
-        {companies.map((company, index) => (
+        {props.profileData.map((company, index) => (
           <tr
             className={classNames(
-              index !== companies.length - 1
+              index !== props.profileData.length - 1
                 ? "border-b border-gray-300"
                 : "border-none",
               "h-14",
@@ -27,12 +70,23 @@ const CompanyTable = (props) => {
             )}
             key={company.ticker}
           >
-            <td className="p-3 px-5 text-left">{company.name}</td>
+            <td
+              onClick={handleTdClick}
+              className="p-3 px-5 text-left hover:bg-blue-100 hover:cursor-pointer"
+              ticker={company.ticker}
+              companyname={company.name}
+            >
+              {company.name}
+            </td>
             <td className="text-center">{company.country}</td>
             <td className="text-center">{company.currency}</td>
             <td className="text-center">
-              <a href={company?.weburl} className="flex justify-center">
-                <LinkIcon className="h-6 w-6 text-gray-700" />
+              <a
+                href={company.weburl}
+                target="blank"
+                className="flex justify-center"
+              >
+                <LinkIcon className="h-6 w-6 text-gray-700 hover:text-blue-600" />
               </a>
             </td>
           </tr>

@@ -1,14 +1,22 @@
 import Home from "./pages/Home";
-import backgroundImage from "./assets/bg-chart.jpg";
+import { classNames } from "./utils/utils";
+import useStonkBg from "./hooks/useStonkBg";
+import bgChart from "./assets/bg-chart.jpg";
+import bgStonk from "./assets/stonks.png";
 
 const App = () => {
+  const { stonkBg, handleStonkSwitch } = useStonkBg();
+
   return (
     <div
-      className="App h-screen w-screen 
-      bg-[url('./assets/stonks.png')] 
-    bg-no-repeat bg-cover bg-center bg-fixed"
+      className={classNames(
+        stonkBg
+          ? "bg-[url('./assets/stonks.png')]"
+          : "bg-[url('./assets/bg-chart.jpg')]",
+        "App h-screen w-screen bg-no-repeat bg-cover bg-center bg-fixed"
+      )}
     >
-      <Home />
+      <Home stonkBg={stonkBg} handleStonkSwitch={handleStonkSwitch} />
     </div>
   );
 };
