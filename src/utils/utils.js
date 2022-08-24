@@ -96,12 +96,7 @@ export const createFetchUrlForCompanyProfile = (symbol) => {
   return fetchUrl;
 };
 
-export const createFetchUrlForPriceHistory = async (
-  symbol,
-  resolution,
-  from,
-  to
-) => {
+export const createFetchUrlForPriceHistory = (symbol, resolution, from, to) => {
   let fetchUrl = API_URL + STOCK_CANDLE_URL;
   if (!hasSpecials(symbol) && !strTooLong(symbol)) {
     fetchUrl +=
@@ -117,4 +112,14 @@ export const createFetchUrlForPriceHistory = async (
       API_KEY;
   }
   return fetchUrl;
+};
+
+export const isMinutes = (resolutionIdentifier) => {
+  return (
+    resolutionIdentifier === "1" ||
+    resolutionIdentifier === "5" ||
+    resolutionIdentifier === "15" ||
+    resolutionIdentifier === "30" ||
+    resolutionIdentifier === "60"
+  );
 };

@@ -6,15 +6,9 @@ const Chart = (props) => {
   const [chartXValues, setChartXValues] = useState([]);
   const [chartYValues, setChartYValues] = useState([]);
 
-  //   if (!props.candleLoading) {
-  //     console.log(dateToString(fromUnixToDate(props.candleData.t[0])));
-  //     console.log(dateToString(fromUnixToDate(props.candleData.t[1])));
-  //   }
-
   const getXY = () => {
     const chartXValuesFunction = [];
     const chartYValuesFunction = [];
-    const data = props.candleData;
     const timeData = props.candleData["t"];
     const priceData = props.candleData["c"];
 
@@ -36,17 +30,49 @@ const Chart = (props) => {
 
   return (
     <Plot
+      className="overflow-x-auto pt-6 w-full"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+        backgroundColor: "#161a1d",
+      }}
       data={[
         {
           x: chartXValues,
           y: chartYValues,
           type: "scatter",
-          // mode: "lines+markers",
-          marker: { color: "black" },
+          marker: { color: "#1f77b4" },
         },
       ]}
-      layout={{ width: "100%", height: "100%", title: props.symbol }}
-      config={{ displaylogo: false }}
+      layout={{
+        width: "100%",
+        height: "100%",
+        paper_bgcolor: "#161a1d",
+        plot_bgcolor: "#161a1d",
+        title: props.companyName,
+        dragmode: "zoom",
+        modebar: {
+          orientation: "v",
+          remove: ["zoomin", "zoomout", "autoscale", "lasso", "select"],
+        },
+        xaxis: {
+          gridcolor: "#273341",
+          rangebreaks: [
+            { pattern: "day of week", bounds: [6, 1] },
+            { pattern: "hour", bounds: [3, 11] },
+          ],
+        },
+        yaxis: {
+          gridcolor: "#273341",
+        },
+        font: { color: "#abaeb3" },
+      }}
+      config={{
+        displaylogo: false,
+        scrollZoom: true,
+        responsive: true,
+      }}
     />
   );
 };

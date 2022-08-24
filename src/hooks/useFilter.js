@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const useFilter = () => {
   const [symbolString, setSymbolString] = useState("");
-  const [dateFrom, setDateFrom] = useState(new Date(2022, 7, 23));
+  const [dateFrom, setDateFrom] = useState(new Date(2022, 7, 1));
   const [dateTo, setDateTo] = useState(new Date());
 
   const handleTextFieldChange = (e) => {

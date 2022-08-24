@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InputField from "../components/form/InputField";
 import DatePicker from "../components/form/DatePicker";
 import SearchButton from "../components/form/SearchButton";
@@ -6,11 +6,7 @@ import ResetButton from "../components/form/ResetButton";
 import CompanyTable from "../components/data/CompanyTable";
 import useFilter from "../hooks/useFilter";
 import CircularIndeterminate from "../components/data/CircularIndeterminate";
-import {
-  makeCompanySymbolArray,
-  createFetchUrlForPriceHistory,
-  toUnixTime,
-} from "../utils/utils";
+import { makeCompanySymbolArray, getYesterday } from "../utils/utils";
 import useCompanyProfileFetch from "../hooks/useCompanyProfileFetch";
 import { Switch } from "@mui/material";
 import HistoryModal from "../components/data/HistoryModal";
@@ -41,19 +37,21 @@ const Home = (props) => {
 
   const handleResetButtonClick = () => {
     setSymbolString("");
-    setDateFrom(new Date(2022, 7, 23));
+    setDateFrom(new Date(2022, 7, 1));
     setDateTo(new Date());
     setSymbols([]);
+    setResolution("30");
+    setCompanyName(null);
   };
 
-  ////////////////////////////////////////////////////////////
-
   const [url, setUrl] = useState(null);
+  const [companyName, setCompanyName] = useState(null);
 
   const {
     historyModal,
     toggleHistoryModal,
     resolution,
+    setResolution,
     handleResolutionChange,
     symbol,
     setSymbol,
@@ -75,6 +73,8 @@ const Home = (props) => {
         candleLoading={candleLoading}
         candleData={candleData}
         setCandleData={setCandleData}
+        setUrl={setUrl}
+        companyName={companyName}
       />
       <div className="absolute top-0 left-0">
         <Switch color="default" onChange={props.handleStonkSwitch} />
@@ -120,6 +120,7 @@ const Home = (props) => {
                 dateFrom={dateFrom}
                 dateTo={dateTo}
                 setUrl={setUrl}
+                setCompanyName={setCompanyName}
               />
             )}
           </div>

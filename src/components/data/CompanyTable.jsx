@@ -8,16 +8,18 @@ const CompanyTable = (props) => {
   const toggleHistoryModal = props.toggleHistoryModal;
   const setSymbol = props.setSymbol;
 
-  const handleTdClick = async (e) => {
-    let s = e.target.getAttribute("value");
+  const handleTdClick = (e) => {
+    let s = e.target.getAttribute("ticker");
+    let companyName = e.target.getAttribute("companyname");
     setSymbol(s);
-    const newUrl = await createFetchUrlForPriceHistory(
+    const newUrl = createFetchUrlForPriceHistory(
       s,
       props.resolution,
       props.dateFrom,
       props.dateTo
     );
     props.setUrl(newUrl);
+    props.setCompanyName(companyName);
     toggleHistoryModal();
   };
 
@@ -46,7 +48,8 @@ const CompanyTable = (props) => {
             <td
               onClick={handleTdClick}
               className="p-3 px-5 text-left hover:bg-blue-100 hover:cursor-pointer"
-              value={company.ticker}
+              ticker={company.ticker}
+              companyname={company.name}
             >
               {company.name}
             </td>

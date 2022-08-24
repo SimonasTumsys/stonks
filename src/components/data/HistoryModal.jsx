@@ -1,17 +1,24 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import CircularIndeterminate from "./CircularIndeterminate";
 import Chart from "./Chart";
+import ResolutionButtonGroup from "./ResolutionButtonGroup";
+import { createFetchUrlForPriceHistory } from "../../utils/utils";
 
 const HistoryModal = (props) => {
+  useEffect(() => {
+    const newUrl = createFetchUrlForPriceHistory(
+      props.symbol,
+      props.resolution,
+      props.dateFrom,
+      props.dateTo
+    );
+    props.setUrl(newUrl);
+  }, [props.resolution]);
+
   return (
     <Transition.Root show={props.historyModal} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10 "
-        onClose={props.toggleHistoryModal}
-      >
+      <Dialog as="div" className="relative z-10 " onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -30,7 +37,7 @@ const HistoryModal = (props) => {
         <div className="fixed z-10 inset-0 overflow-y-auto ">
           <div
             className="flex items-center sm:items-center 
-          justify-center min-h-full p-8 text-center sm:p-8 min-w-[33.25rem] "
+          justify-center min-h-full p-8 text-center sm:p-8 min-w-[29.75rem] "
           >
             <Transition.Child
               as={Fragment}
@@ -44,41 +51,45 @@ const HistoryModal = (props) => {
               <Dialog.Panel
                 className="relative bg-white rounded-lg 
               text-left overflow-hidden shadow-xl transform transition-all 
-              :my-8 w-full sm:max-w-4xl"
+              :my-8 w-full sm:max-w-3xl"
               >
-                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
-                  {props.candleLoading ? (
-                    <div className="flex justify-center">
-                      <CircularIndeterminate />
-                    </div>
-                  ) : (
-                    <div className="flex justify-center">
-                      <Chart
-                        symbol={props.symbol}
-                        dateFrom={props.dateFrom}
-                        dateTo={props.dateTo}
-                        candleLoading={props.candleLoading}
-                        candleData={props.candleData}
-                        setCandleData={props.setCandleData}
-                      />
-                    </div>
-                  )}
-                </div>
+                {props.candleLoading ? (
+                  <div className="flex justify-center items-center h-24 bg-gray-400">
+                    <CircularIndeterminate />
+                  </div>
+                ) : (
+                  <div className="flex justify-center w-46">
+                    <Chart
+                      symbol={props.symbol}
+                      dateFrom={props.dateFrom}
+                      dateTo={props.dateTo}
+                      candleLoading={props.candleLoading}
+                      candleData={props.candleData}
+                      setCandleData={props.setCandleData}
+                      companyName={props.companyName}
+                    />
+                  </div>
+                )}
                 <div
-                  className="bg-gray-200 px-4 py-3 sm:px-6
-                 flex flex-row-reverse"
+                  className="bg-gray-700 px-4 py-3 sm:px-6
+                 flex justify-between"
                 >
+                  <ResolutionButtonGroup
+                    resolution={props.resolution}
+                    handleResolutionChange={props.handleResolutionChange}
+                    candleLoading={props.candleLoading}
+                  />
                   <button
                     type="button"
                     className="mt-3 inline-flex justify-center 
-                    rounded-md border border-gray-300 shadow-sm px-4 py-2
-                     bg-white text-base font-medium text-gray-700
-                      hover:bg-gray-50 focus:outline-none 
+                    rounded-md  shadow-sm px-4 py-2
+                     bg-red-800 text-base font-medium text-white
+                      hover:bg-red-700 focus:outline-none 
                      sm:mt-0 
                        sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={props.toggleHistoryModal}
                   >
-                    Cancel
+                    Close
                   </button>
                 </div>
               </Dialog.Panel>
