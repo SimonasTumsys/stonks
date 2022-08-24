@@ -40,7 +40,7 @@ const Home = (props) => {
     setDateFrom(new Date(2022, 7, 1));
     setDateTo(new Date());
     setSymbols([]);
-    setResolution("30");
+    setResolution("15");
     setCompanyName(null);
   };
 
@@ -121,6 +121,7 @@ const Home = (props) => {
                 dateTo={dateTo}
                 setUrl={setUrl}
                 setCompanyName={setCompanyName}
+                candleData={candleData}
               />
             )}
           </div>

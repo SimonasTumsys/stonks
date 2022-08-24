@@ -4,9 +4,10 @@ import CircularIndeterminate from "./CircularIndeterminate";
 import Chart from "./Chart";
 import ResolutionButtonGroup from "./ResolutionButtonGroup";
 import { createFetchUrlForPriceHistory } from "../../utils/utils";
+import useSkipFirstRender from "../../hooks/useSkipFirstRender";
 
 const HistoryModal = (props) => {
-  useEffect(() => {
+  const rerenderOnResolutionChange = () => {
     const newUrl = createFetchUrlForPriceHistory(
       props.symbol,
       props.resolution,
@@ -14,6 +15,10 @@ const HistoryModal = (props) => {
       props.dateTo
     );
     props.setUrl(newUrl);
+  };
+
+  useSkipFirstRender(() => {
+    rerenderOnResolutionChange();
   }, [props.resolution]);
 
   return (

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_KEY } from "../utils/constants";
-import { createFetchUrlForPriceHistory } from "../utils/utils";
-import useFilter from "./useFilter";
+import useSkipFirstRender from "./useSkipFirstRender";
 
 const useFetch = (url) => {
   const [candleData, setCandleData] = useState(null);
