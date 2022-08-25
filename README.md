@@ -9,6 +9,6 @@ I am personally ***invested*** in this poject.
 - Navigate to the root directory of the backend: $`cd /stonks/server`
 - run $`npm install` and then $`npm run start` in a separate terminal
 - ????
-- Profit (hopefully)
+- profit (hopefully)
 
 On your local browser navigate to *localhost:3000/* to maximize gains
