@@ -5,9 +5,9 @@ I am personally ***invested*** in this poject.
 
 - Clone this repo https://github.com/SimonasTumsys/stonks/
 - Navigate to the root directory of the frontend: $`cd /stonks/app`
-- run $`npm run start`
+- run $`npm install` and then $`npm run start`
 - Navigate to the root directory of the backend: $`cd /stonks/server`
-- run $`npm run start` in a separate terminal
+- run $`npm install` and then $`npm run start` in a separate terminal
 - ????
 - Profit (hopefully)
 
