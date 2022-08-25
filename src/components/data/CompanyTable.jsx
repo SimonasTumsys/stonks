@@ -2,7 +2,6 @@ import React from "react";
 import { classNames } from "../../utils/utils";
 import { LinkIcon } from "@heroicons/react/outline";
 import { createFetchUrlForPriceHistory, dateToString } from "../../utils/utils";
-import { SERVER_URL } from "../../utils/constants";
 
 const CompanyTable = (props) => {
   const toggleHistoryModal = props.toggleHistoryModal;
@@ -20,32 +19,7 @@ const CompanyTable = (props) => {
     );
     props.setUrl(newUrl);
     props.setCompanyName(companyName);
-    makePost(
-      companyName,
-      props.candleData["c"],
-      props.candleData["t"],
-      props.dateFrom,
-      props.dateTo
-    );
     toggleHistoryModal();
-  };
-
-  const makePost = (compName, cPrices, cTimestamps, dTo, dFrom) => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        requestTimestamp: dateToString(new Date()),
-        companyName: compName,
-        closingPrices: cPrices,
-        candleTimestamps: cTimestamps,
-        dateFrom: dateToString(dFrom),
-        dateTo: dateToString(dTo),
-      }),
-    };
-    fetch(SERVER_URL, requestOptions)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
   };
 
   return (

@@ -6,7 +6,7 @@ import ResetButton from "../components/form/ResetButton";
 import CompanyTable from "../components/data/CompanyTable";
 import useFilter from "../hooks/useFilter";
 import CircularIndeterminate from "../components/data/CircularIndeterminate";
-import { makeCompanySymbolArray, getYesterday } from "../utils/utils";
+import { makeCompanySymbolArray } from "../utils/utils";
 import useCompanyProfileFetch from "../hooks/useCompanyProfileFetch";
 import { Switch } from "@mui/material";
 import HistoryModal from "../components/data/HistoryModal";
@@ -58,7 +58,7 @@ const Home = (props) => {
   } = usePriceHistory();
 
   const { candleData, setCandleData, candleLoading, candleError } =
-    useCandleFetch(url);
+    useCandleFetch(url, companyName, dateFrom, dateTo);
 
   return (
     <div className="pt-8 p-8 h-screen min-h-screen">
