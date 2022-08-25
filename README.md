@@ -4,9 +4,9 @@ I am personally ***invested*** in this poject.
 #### Setup:
 
 - Clone this repo https://github.com/SimonasTumsys/stonks/
-- Navigate to the root directory of the frontend: $`cd /ibm-stocks/app`
+- Navigate to the root directory of the frontend: $`cd /stonks/app`
 - run $`npm run start`
-- Navigate to the root directory of the backend: $`cd /ibm-stocks/server`
+- Navigate to the root directory of the backend: $`cd /stonks/server`
 - run $`npm run start` in a separate terminal
 - ????
 - Profit (hopefully)
