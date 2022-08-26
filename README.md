@@ -15,6 +15,7 @@ npm install && npm run start
 ```bash
 $cd /stonks/server
 ```
+- Create .env file with MongoDB connection URI
 - In a separate terminal, install node modules and launch
 ```bash
 npm install && npm run start
