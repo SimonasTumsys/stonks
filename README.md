@@ -1,14 +1,27 @@
 I am personally ***invested*** in this poject.
 
 
-#### Setup:
-
-- Clone this repo https://github.com/SimonasTumsys/stonks/
-- Navigate to the root directory of the frontend: $`cd /stonks/app`
-- run $`npm install` and then $`npm run start`
-- Navigate to the root directory of the backend: $`cd /stonks/server`
-- run $`npm install` and then $`npm run start` in a separate terminal
+### Setup:
+- Clone this repo @ https://github.com/SimonasTumsys/stonks/
+- Navigate to the root directory of the frontend:
+```bash
+$cd /stonks/app
+```
+- Install node modules and launch
+```bash
+npm install && npm run start
+```
+- Navigate to the root directory of the backend:
+```bash
+$cd /stonks/server
+```
+- In a separate terminal, install node modules and launch
+```bash
+npm install && npm run start
+```
 - ????
 - profit (hopefully)
 
-On your local browser navigate to *localhost:3000/* to maximize gains
+On your local browser navigate to *localhost:3000/* to maximize gains :money_mouth_face:
+
+:rocket: After playing around a bit, try visiting *localhost:3001/get* :rocket:
