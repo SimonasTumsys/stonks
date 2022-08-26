@@ -41,8 +41,8 @@ const HistoryModal = (props) => {
 
         <div className="fixed z-10 inset-0 overflow-y-auto ">
           <div
-            className="flex items-center sm:items-center 
-          justify-center min-h-full p-8 text-center sm:p-8"
+            className="flex items-center
+          justify-center min-h-full p-2 text-center sm:p-8"
           >
             <Transition.Child
               as={Fragment}
@@ -55,7 +55,7 @@ const HistoryModal = (props) => {
             >
               <Dialog.Panel
                 className="relative bg-white rounded-lg 
-              text-left overflow-hidden shadow-xl transform transition-all 
+              text-left overflow-hidden shadow-xl transform transition-all
               :my-8 w-full sm:max-w-3xl"
               >
                 {props.candleLoading ? (
