@@ -1,9 +1,12 @@
 import React from "react";
 import { classNames } from "../../utils/utils";
 import { LinkIcon } from "@heroicons/react/outline";
-import { createFetchUrlForPriceHistory, dateToString } from "../../utils/utils";
+import { createFetchUrlForPriceHistory } from "../../utils/utils";
+import { useMediaQuery } from "react-responsive";
 
 const CompanyTable = (props) => {
+  const isMobile = useMediaQuery({ query: `(max-width: 500px)` });
+
   const toggleHistoryModal = props.toggleHistoryModal;
   const setSymbol = props.setSymbol;
 
@@ -27,9 +30,9 @@ const CompanyTable = (props) => {
       <thead className="sticky top-0 bg-gray-200 ">
         <tr className="border-b-2 border-gray-300">
           <th className="text-left p-3 px-5">Name</th>
-          <th className="text-center p-3 px-5">Country</th>
+          {!isMobile && <th className="text-center p-3 px-5">Country</th>}
           <th className="text-center p-3 px-5">Currency</th>
-          <th className="text-center p-3 px-5">URL</th>
+          {!isMobile && <th className="text-center p-3 px-5">URL</th>}
         </tr>
       </thead>
       <tbody className="overflow-auto">
@@ -52,17 +55,19 @@ const CompanyTable = (props) => {
             >
               {company.name}
             </td>
-            <td className="text-center">{company.country}</td>
+            {!isMobile && <td className="text-center">{company.country}</td>}
             <td className="text-center">{company.currency}</td>
-            <td className="text-center">
-              <a
-                href={company.weburl}
-                target="blank"
-                className="flex justify-center"
-              >
-                <LinkIcon className="h-6 w-6 text-gray-700 hover:text-blue-600" />
-              </a>
-            </td>
+            {!isMobile && (
+              <td className="text-center">
+                <a
+                  href={company.weburl}
+                  target="blank"
+                  className="flex justify-center"
+                >
+                  <LinkIcon className="h-6 w-6 text-gray-700 hover:text-blue-600" />
+                </a>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import useFilter from "../../hooks/useFilter";
 
 const Datepicker = (props) => {
   const isMobile = useMediaQuery({ query: `(max-width: 768px)` });

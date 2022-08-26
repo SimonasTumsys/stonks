@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import CircularIndeterminate from "./CircularIndeterminate";
 import Chart from "./Chart";
@@ -42,7 +42,7 @@ const HistoryModal = (props) => {
         <div className="fixed z-10 inset-0 overflow-y-auto ">
           <div
             className="flex items-center sm:items-center 
-          justify-center min-h-full p-8 text-center sm:p-8 min-w-[29.75rem] "
+          justify-center min-h-full p-8 text-center sm:p-8"
           >
             <Transition.Child
               as={Fragment}

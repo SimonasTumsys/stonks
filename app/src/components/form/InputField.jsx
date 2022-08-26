@@ -1,5 +1,4 @@
 import React from "react";
-import useFilter from "../../hooks/useFilter";
 import { strTooLong, hasSpecials, classNames } from "../../utils/utils";
 
 const Inputfield = (props) => {
@@ -26,6 +25,7 @@ const Inputfield = (props) => {
           Query shouldn't be longer than 35 characters.
         </span>
         <input
+          onKeyDown={props.handleKeyPress}
           pattern="[A-Za-z ]\{0-35\}"
           className={classNames(
             hasSpecials(symbolString) || strTooLong(symbolString)

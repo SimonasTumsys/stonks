@@ -15,8 +15,7 @@ import useCandleFetch from "../hooks/useCandleFetch";
 
 const Home = (props) => {
   const [symbols, setSymbols] = useState([]);
-  const { profileData, setProfileData, profileLoading } =
-    useCompanyProfileFetch(symbols);
+  const { profileData, profileLoading } = useCompanyProfileFetch(symbols);
 
   const {
     symbolString,
@@ -33,6 +32,12 @@ const Home = (props) => {
   const handleSearchButtonClick = () => {
     const symbolArray = makeCompanySymbolArray(symbolString);
     setSymbols(symbolArray);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.keyCode === 13 || event.which === 13) {
+      handleSearchButtonClick();
+    }
   };
 
   const handleResetButtonClick = () => {
@@ -57,8 +62,12 @@ const Home = (props) => {
     setSymbol,
   } = usePriceHistory();
 
-  const { candleData, setCandleData, candleLoading, candleError } =
-    useCandleFetch(url, companyName, dateFrom, dateTo);
+  const { candleData, setCandleData, candleLoading } = useCandleFetch(
+    url,
+    companyName,
+    dateFrom,
+    dateTo
+  );
 
   return (
     <div className="pt-8 p-8 h-screen min-h-screen">
@@ -82,12 +91,13 @@ const Home = (props) => {
       <div
         className="container 
           mx-auto pt-10 max-w-xl px-6 
-          h-full border bg-gray-100 rounded min-w-min opacity-95 overflow-auto "
+          h-full border bg-gray-100 rounded  opacity-95 overflow-y-scroll "
       >
         <div className="mb-4">
           <InputField
             symbolString={symbolString}
             handleTextFieldChange={handleTextFieldChange}
+            handleKeyPress={handleKeyPress}
           />
         </div>
         <div className="w-full">
