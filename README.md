@@ -15,6 +15,7 @@ npm install && npm run start
 ```bash
 $cd /stonks/server
 ```
+- Create .env file with MongoDB connection URI
 - In a separate terminal, install node modules and launch
 ```bash
 npm install && npm run start
@@ -24,4 +25,6 @@ npm install && npm run start
 
 On your local browser navigate to *localhost:3000/* to maximize gains :money_mouth_face:
 
-:rocket: After playing around a bit, try visiting *localhost:3001/get* :rocket:
+Symbols to try: amc gme msft amzn aapl ibm nflx goog meta ...
+
+:rocket: After playing around for a bit, try visiting *localhost:3001/get* :rocket:
