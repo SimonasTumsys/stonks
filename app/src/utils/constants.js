@@ -4,5 +4,5 @@ export const STOCK_CANDLE_URL = "/stock/candle";
 
 export const SERVER_URL = "http://localhost:3001/";
 
-export const API_KEY = "cc1bruaad3iblgains0g";
-export const API_SANDBOX_KEY = "sandbox_cc1bruaad3iblgains10";
+export const API_KEY = "";
+export const API_SANDBOX_KEY = "";
